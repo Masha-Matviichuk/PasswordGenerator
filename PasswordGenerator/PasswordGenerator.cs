@@ -33,31 +33,31 @@ namespace PasswordGenerator
         {
         }
 
-        public PasswordGenerator IncludeLowercase()
+        public new PasswordGenerator IncludeLowercase()
         {
             base.Settings = base.Settings.AddLowercase();
             return this;
         }
 
-        public PasswordGenerator IncludeUppercase()
+        public new PasswordGenerator IncludeUppercase()
         {
             base.Settings = base.Settings.AddUppercase();
             return this;
         }
 
-        public PasswordGenerator IncludeNumeric()
+        public new PasswordGenerator IncludeNumeric()
         {
             base.Settings = base.Settings.AddNumeric();
             return this;
         }
 
-        public PasswordGenerator IncludeSpecial()
+        public new PasswordGenerator IncludeSpecial()
         {
             base.Settings = base.Settings.AddSpecial();
             return this;
         }
 
-        public PasswordGenerator LengthRequired(int passwordLength)
+        public new PasswordGenerator LengthRequired(int passwordLength)
         {
             base.Settings.PasswordLength = passwordLength;
             return this;

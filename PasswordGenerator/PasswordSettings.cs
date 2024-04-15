@@ -13,10 +13,11 @@ namespace PasswordGenerator
         private const string DefaultSpecialCharacters = @"!#$%&*@\";
         private const int DefaultMinPasswordLength = 4;
         private const int DefaultMaxPasswordLength = 256;
+
         public string SpecialCharacters { get; set; }
 
         public PasswordSettings(bool includeLowercase, bool includeUppercase, bool includeNumeric, bool includeSpecial,
-            int passwordLength, int maximumAttempts, bool usingDefaults)
+            int passwordLength, int maximumAttempts, bool usingDefaults, bool useOwnCharactersSet = false, string latinCharactersSet = null)
         {
             IncludeLowercase = includeLowercase;
             IncludeUppercase = includeUppercase;
@@ -28,7 +29,7 @@ namespace PasswordGenerator
             MaximumLength = DefaultMaxPasswordLength;
             UsingDefaults = usingDefaults;
             SpecialCharacters = DefaultSpecialCharacters;
-            CharacterSet = BuildCharacterSet(includeLowercase, includeUppercase, includeNumeric, includeSpecial);
+            CharacterSet = BuildCharacterSet(includeLowercase, includeUppercase, includeNumeric, includeSpecial,  useOwnCharactersSet, latinCharactersSet);
         }
 
         private bool UsingDefaults { get; set; }
@@ -86,13 +87,25 @@ namespace PasswordGenerator
         }
 
         private string BuildCharacterSet(bool includeLowercase, bool includeUppercase, bool includeNumeric,
-            bool includeSpecial)
+            bool includeSpecial, bool useOwnCharactersSet, string latinCharactersSet)
         {
             var characterSet = new StringBuilder();
-            if (includeLowercase) characterSet.Append(LowercaseCharacters);
 
-            if (includeUppercase) characterSet.Append(UppercaseCharacters);
+            if (useOwnCharactersSet)
+            {
+                if (includeLowercase && latinCharactersSet != null)
+                    characterSet.Append(latinCharactersSet.ToLower());
 
+                if (includeUppercase && latinCharactersSet != null) 
+                    characterSet.Append(latinCharactersSet.ToUpper());
+            }
+            else
+            {
+                if (includeLowercase) characterSet.Append(LowercaseCharacters);
+
+                if (includeUppercase) characterSet.Append(UppercaseCharacters);
+            }
+            
             if (includeNumeric) characterSet.Append(NumericCharacters);
 
             if (includeSpecial) characterSet.Append(SpecialCharacters);

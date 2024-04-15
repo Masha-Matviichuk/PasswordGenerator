@@ -10,7 +10,7 @@ namespace PasswordGenerator
         bool IncludeNumeric { get; }
         bool IncludeSpecial { get; }
         int PasswordLength { get; set; }
-        string CharacterSet { get; }
+        string CharacterSet { get;  }
         int MaximumAttempts { get; }
         int MinimumLength { get; }
         int MaximumLength { get; }
@@ -18,6 +18,7 @@ namespace PasswordGenerator
         IPasswordSettings AddUppercase();
         IPasswordSettings AddNumeric();
         IPasswordSettings AddSpecial();
+
         IPasswordSettings AddSpecial(string specialCharactersToAdd);
         string SpecialCharacters { get; set; }
     }

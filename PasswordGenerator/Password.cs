@@ -23,7 +23,7 @@ namespace PasswordGenerator
         {
             Settings = new PasswordSettings(DefaultIncludeLowercase, DefaultIncludeUppercase,
                 DefaultIncludeNumeric, DefaultIncludeSpecial, DefaultPasswordLength, DefaultMaxPasswordAttempts,
-                true);
+                true, false, null);
 
             _rng = RandomNumberGenerator.Create();
         }
@@ -38,7 +38,7 @@ namespace PasswordGenerator
         public Password(int passwordLength)
         {
             Settings = new PasswordSettings(DefaultIncludeLowercase, DefaultIncludeUppercase,
-                DefaultIncludeNumeric, DefaultIncludeSpecial, passwordLength, DefaultMaxPasswordAttempts, true);
+                DefaultIncludeNumeric, DefaultIncludeSpecial, passwordLength, DefaultMaxPasswordAttempts, true, false, null);
 
             _rng = RandomNumberGenerator.Create();
         }
@@ -46,7 +46,7 @@ namespace PasswordGenerator
         public Password(bool includeLowercase, bool includeUppercase, bool includeNumeric, bool includeSpecial)
         {
             Settings = new PasswordSettings(includeLowercase, includeUppercase, includeNumeric,
-                includeSpecial, DefaultPasswordLength, DefaultMaxPasswordAttempts, false);
+                includeSpecial, DefaultPasswordLength, DefaultMaxPasswordAttempts, false, false, null);
 
             _rng = RandomNumberGenerator.Create();
         }
@@ -55,7 +55,7 @@ namespace PasswordGenerator
             int passwordLength)
         {
             Settings = new PasswordSettings(includeLowercase, includeUppercase, includeNumeric,
-                includeSpecial, passwordLength, DefaultMaxPasswordAttempts, false);
+                includeSpecial, passwordLength, DefaultMaxPasswordAttempts, false, false, null);
 
             _rng = RandomNumberGenerator.Create();
         }
@@ -64,7 +64,7 @@ namespace PasswordGenerator
             int passwordLength, int maximumAttempts)
         {
             Settings = new PasswordSettings(includeLowercase, includeUppercase, includeNumeric,
-                includeSpecial, passwordLength, maximumAttempts, false);
+                includeSpecial, passwordLength, maximumAttempts, false, false, null);
 
             _rng = RandomNumberGenerator.Create();
         }
@@ -100,7 +100,6 @@ namespace PasswordGenerator
             Settings = Settings.AddSpecial(specialCharactersToInclude);
             return this;
         }
-
         public IPassword LengthRequired(int passwordLength)
         {
             Settings.PasswordLength = passwordLength;
